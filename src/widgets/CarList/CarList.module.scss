@@ -1,15 +1,19 @@
 .main {
     min-height: 100vh;
-    padding: 4rem 4rem;
+    padding: 1rem 1rem;
     flex: 1;
     display: flex;
     flex-direction: column;
+
+    @media (min-width: 768px) {
+        padding: 4rem 4rem;
+    }
 }
 .grid {
     margin-top: 1rem;
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
     gap: 1.5rem;
-    grid-template-columns: repeat(3, 1fr);
     align-items: flex-start;
 }
 
@@ -35,10 +39,11 @@
     }
     .vin {
         font-size: 0.5rem;
+        margin-bottom: 0.5rem;
         color: var(--grey-outline);
     }
     .image {
-        max-width: min(264px, 100%) !important;
+        max-width: min(264px, 100%);
         height: auto;
         border-radius: 0.2rem;
     }
@@ -47,6 +52,7 @@
         flex-direction: column;
         width: 100%;
         gap: 0.8rem;
+        margin-top: 1.4rem;
 
         .features_cols {
             display: flex;
@@ -98,6 +104,13 @@
                 width: fit-content;
                 white-space: nowrap;
             }
+        }
+    }
+
+    .features_cols_price {
+        flex-direction: column;
+        @media (min-width: 420px) {
+            flex-direction: row;
         }
     }
 }

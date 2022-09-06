@@ -38,12 +38,16 @@ export default function CarList({ list }: PageProps) {
         }
         items={items}
       />
-      <div className={styles.grid}>
-        {list &&
-          Object.entries(items).map(([brand, show]) => {
-            if (!show) return null;
-            return list[brand].map((data) => <Card key={data._id} {...data} />);
-          })}
+      <div className="row">
+        <div className={styles.grid + " col-12"}>
+          {list &&
+            Object.entries(items).map(([brand, show]) => {
+              if (!show) return null;
+              return list[brand].map((data) => (
+                <Card key={data._id} {...data} />
+              ));
+            })}
+        </div>
       </div>
     </main>
   );
@@ -67,7 +71,7 @@ const Card = ({
   },
   photobank: { imgs },
 }: CarType) => {
-  const [sliderRef, instanceRef] = useKeenSlider(
+  const [sliderRef] = useKeenSlider(
     {
       slides: { perView: 1.2, spacing: 10 },
     },
@@ -80,14 +84,7 @@ const Card = ({
         <span className={styles.production_year}>{productionYear}</span>
       </div>
       <div className={styles.vin}>{vin}</div>
-      {/* <Image
-        className={styles.image}
-        src={imgs[0].urlThumb}
-        alt={modelName}
-        width={700}
-        height={450}
-      /> */}
-      <div ref={sliderRef} className="keen-slider">
+      <div ref={sliderRef} className={"keen-slider"}>
         {imgs
           .filter((_, index) => index < 3)
           .map(({ urlThumb }) => (
@@ -148,7 +145,7 @@ const Card = ({
           />
         ) : null}
         <div
-          className={`${styles.features_cols} ${styles["features_cols--price"]}`}
+          className={`${styles.features_cols} ${styles.features_cols_price}`}
         >
           <div className={styles.features_row}>
             <Price
