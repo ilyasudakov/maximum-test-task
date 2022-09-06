@@ -48,6 +48,31 @@
         width: 100%;
         gap: 0.8rem;
 
+        .features_cols {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+
+            .price {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                font-size: 1.4rem;
+                gap: 0.4rem;
+
+                .price_optional {
+                    font-size: 0.7rem;
+                    white-space: nowrap;
+                }
+            }
+
+            .features_row {
+                display: flex;
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+        }
+
         .options {
             display: flex;
             align-items: center;
