@@ -71,6 +71,7 @@ const Card = ({
     price,
     baseOptions,
     parkingDuration,
+    noFactoryOptions,
     engine: { engineTransmission, engineCapacity, enginePower },
   },
   photobank: { imgs },
@@ -118,26 +119,34 @@ const Card = ({
             />
           </div>
         </div>
-        <CarFeatureBasic
-          category="Пакеты"
-          feature={
-            <div className={styles.options}>
-              <div className={styles.all_options}>
-                <div>{baseOptions[0]?.name}</div>
+        {noFactoryOptions.length > 0 ? (
+          <CarFeatureBasic
+            category="Пакеты"
+            feature={
+              <div className={styles.options}>
+                <div className={styles.all_options}>
+                  <div>{noFactoryOptions[0]?.name}</div>
+                </div>
+                {noFactoryOptions.length > 1 && (
+                  <div
+                    className={styles.more_options_text}
+                  >{`(+ ещё ${noFactoryOptions.length} пакет)`}</div>
+                )}
               </div>
-              {baseOptions.length > 1 && (
-                <div
-                  className={styles.more_options_text}
-                >{`(+ ещё ${baseOptions.length} пакет)`}</div>
-              )}
-            </div>
-          }
-        />
+            }
+          />
+        ) : null}
         <div
           className={`${styles.features_cols} ${styles["features_cols--price"]}`}
         >
           <div className={styles.features_row}>
-            <Price price={price} optionalPrice={99999} />
+            <Price
+              price={price}
+              optionalPrice={noFactoryOptions.reduce(
+                (sum, { price }) => sum + price,
+                0
+              )}
+            />
           </div>
           <div className={styles.features_row}>
             <Button>КУПИТЬ</Button>
@@ -150,7 +159,7 @@ const Card = ({
 
 const Price = ({
   price,
-  optionalPrice,
+  optionalPrice = 0,
 }: {
   price: number;
   optionalPrice?: number;
@@ -166,12 +175,12 @@ const Price = ({
         </span>
         {` ₽`}
       </div>
-      {optionalPrice && (
+      {optionalPrice > 0 && (
         <div className={styles.price_optional}>
           <div>
             {`Доп. опции на `}
             <span style={{ color: "var(--accent-primary)" }}>
-              {formatNumber(price, {
+              {formatNumber(optionalPrice, {
                 maximumFractionDigits: 0,
                 minimumFractionDigits: 0,
               })}

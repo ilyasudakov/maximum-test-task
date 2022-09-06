@@ -13,6 +13,8 @@ export type CarType = {
     equipmentVariantName: string;
     vin: string;
     price: number;
+    options: { name: string }[];
+    noFactoryOptions: { name: string; price: number }[];
     equipmentVariantTransmission: string;
     equipmentVariantDriveType: string;
     color: string;
