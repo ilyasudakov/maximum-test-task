@@ -8,16 +8,6 @@ const Price = ({
   price: number;
   optionalPrice?: number;
 }) => {
-  const renderPrice = (_price: number) => {
-    return (
-      <span style={{ color: "var(--accent-primary)" }}>
-        {formatNumber(_price, {
-          maximumFractionDigits: 0,
-          minimumFractionDigits: 0,
-        })}
-      </span>
-    );
-  };
   return (
     <div className={styles.price}>
       <div>
@@ -38,3 +28,14 @@ const Price = ({
 };
 
 export default Price;
+
+const renderPrice = (_price: number) => {
+  return (
+    <span style={{ color: "var(--accent-primary)" }}>
+      {formatNumber(_price, {
+        maximumFractionDigits: 0,
+        minimumFractionDigits: 0,
+      })}
+    </span>
+  );
+};

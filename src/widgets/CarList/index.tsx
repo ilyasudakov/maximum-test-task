@@ -28,8 +28,6 @@ export default function CarList({ list }: PageProps) {
   const [items, setItems] = useState<{ [brand in string]: boolean }>(
     initBrands(CAR_BRANDS)
   );
-  console.log(list);
-
   return (
     <main className={styles.main}>
       <SelectCheckbox
