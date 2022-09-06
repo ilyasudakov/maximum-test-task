@@ -5,11 +5,17 @@ const nextConfig = {
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
-      use: ["@svgr/webpack"]
+      use: ["@svgr/webpack"],
     });
 
     return config;
-  }
-}
+  },
+  images: { domains: ["photobank.maximum.expert"] },
+  experimental: {
+    images: {
+      allowFutureImage: true,
+    },
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

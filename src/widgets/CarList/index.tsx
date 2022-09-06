@@ -1,3 +1,4 @@
+import Image from "next/future/image";
 import { useState } from "react";
 import SelectCheckbox from "../../components/SelectOption/SelectCheckbox";
 import { PageProps } from "../../pages";
@@ -43,11 +44,35 @@ export default function CarList({ list }: PageProps) {
           Object.entries(items).map(([brand, show]) => {
             if (!show) return null;
             return list[brand].map(
-              ({ _id, feedData: { brandName, modelName } }) => (
-                <div
-                  className={styles.card}
-                  key={_id}
-                >{`${brandName} ${modelName}`}</div>
+              ({
+                _id,
+                feedData: {
+                  brandName,
+                  productionYear,
+                  modelName,
+                  vin,
+                  equipmentVariantTransmission,
+                  equipmentVariantName,
+                  engine: { engineTransmission, engineCapacity },
+                },
+                photobank: { imgs },
+              }) => (
+                <div className={styles.card} key={_id}>
+                  <div className={styles.title}>
+                    {`${brandName} ${modelName} ${equipmentVariantName}`}
+                    <span className={styles.production_year}>
+                      {productionYear}
+                    </span>
+                  </div>
+                  <div className={styles.vin}>{vin}</div>
+                  <Image
+                    className={styles.image}
+                    src={imgs[0].urlThumb}
+                    alt={modelName}
+                    width={700}
+                    height={450}
+                  />
+                </div>
               )
             );
           })}
