@@ -8,6 +8,8 @@ import { formatNumber } from "../../utils/format";
 import styles from "./CarList.module.scss";
 import CarFeature from "./components/CarFeature";
 import CarFeatureBasic from "./components/CarFeatureBasic";
+import "keen-slider/keen-slider.min.css";
+import { useKeenSlider } from "keen-slider/react";
 
 export const CAR_BRANDS = [
   "Audi",
@@ -25,14 +27,6 @@ export default function CarList({ list }: PageProps) {
   const [items, setItems] = useState<{ [brand in string]: boolean }>(
     initBrands(CAR_BRANDS)
   );
-
-  const changeAllItems = (value: boolean) =>
-    setItems((items) => ({
-      ...Object.entries(items).reduce(
-        (newItems, [brand]) => ({ ...newItems, [brand]: value }),
-        {}
-      ),
-    }));
   console.log(list);
 
   return (
@@ -62,20 +56,23 @@ const Card = ({
     productionYear,
     modelName,
     vin,
-    equipmentVariantTransmission,
     equipmentVariantTransmissionType,
     equipmentVariantName,
-    equipmentVariantDriveType,
     equipmentVariantFuelType,
     color,
     price,
-    baseOptions,
     parkingDuration,
     noFactoryOptions,
-    engine: { engineTransmission, engineCapacity, enginePower },
+    engine: { engineCapacity, enginePower },
   },
   photobank: { imgs },
 }: CarType) => {
+  const [sliderRef, instanceRef] = useKeenSlider(
+    {
+      slides: { perView: 1.2, spacing: 10 },
+    },
+    []
+  );
   return (
     <div className={styles.card} key={_id}>
       <div className={styles.title}>
@@ -83,13 +80,27 @@ const Card = ({
         <span className={styles.production_year}>{productionYear}</span>
       </div>
       <div className={styles.vin}>{vin}</div>
-      <Image
+      {/* <Image
         className={styles.image}
         src={imgs[0].urlThumb}
         alt={modelName}
         width={700}
         height={450}
-      />
+      /> */}
+      <div ref={sliderRef} className="keen-slider">
+        {imgs
+          .filter((_, index) => index < 3)
+          .map(({ urlThumb }) => (
+            <Image
+              key={urlThumb}
+              className={styles.image + " keen-slider__slide"}
+              src={urlThumb}
+              alt={modelName}
+              width={700}
+              height={450}
+            />
+          ))}
+      </div>
       <div className={styles.features}>
         <div className={styles.features_cols}>
           <div className={styles.features_row}>
