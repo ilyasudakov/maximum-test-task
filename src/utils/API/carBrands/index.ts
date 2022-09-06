@@ -9,9 +9,14 @@ export type CarType = {
     equipmentVariantTransmissionType: string;
     productionYear: number;
     equipmentName: string;
+    equipmentVariantFuelType: string;
     equipmentVariantName: string;
     vin: string;
     equipmentVariantTransmission: string;
+    equipmentVariantDriveType: string;
+    color: string;
+    parkingDuration: number;
+    baseOptions: { id: string; name: string }[];
     engine: {
       engineCapacity: number;
       enginePower: number;

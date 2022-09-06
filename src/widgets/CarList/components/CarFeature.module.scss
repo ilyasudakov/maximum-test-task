@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    font-size: 0.7rem;
+    color: #303030;
+
+    .category {
+        color: #acb8bf;
+        font-size: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .feature {
+        display: flex;
+        gap: 0.1rem;
+
+        .divider {
+            color: var(--accent-primary);
+        }
+    }
+}

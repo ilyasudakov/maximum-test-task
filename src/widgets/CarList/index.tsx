@@ -2,7 +2,10 @@ import Image from "next/future/image";
 import { useState } from "react";
 import SelectCheckbox from "../../components/SelectOption/SelectCheckbox";
 import { PageProps } from "../../pages";
+import { formatNumber } from "../../utils/format";
 import styles from "./CarList.module.scss";
+import CarFeature from "./components/CarFeature";
+import CarFeatureBasic from "./components/CarFeatureBasic";
 
 export const CAR_BRANDS = [
   "Audi",
@@ -52,8 +55,14 @@ export default function CarList({ list }: PageProps) {
                   modelName,
                   vin,
                   equipmentVariantTransmission,
+                  equipmentVariantTransmissionType,
                   equipmentVariantName,
-                  engine: { engineTransmission, engineCapacity },
+                  equipmentVariantDriveType,
+                  equipmentVariantFuelType,
+                  color,
+                  baseOptions,
+                  parkingDuration,
+                  engine: { engineTransmission, engineCapacity, enginePower },
                 },
                 photobank: { imgs },
               }) => (
@@ -72,6 +81,45 @@ export default function CarList({ list }: PageProps) {
                     width={700}
                     height={450}
                   />
+                  <div className={styles.features}>
+                    <CarFeature
+                      category="Двигатель"
+                      features={[
+                        `${formatNumber(engineCapacity)} л`,
+                        `${enginePower} лс`,
+                        equipmentVariantFuelType,
+                      ]}
+                    />
+                    <CarFeature
+                      category="КПП"
+                      features={[equipmentVariantTransmissionType]}
+                    />
+                    <CarFeature category="Цвет" features={[color]} />
+                    <CarFeature
+                      category="Пробег"
+                      features={[
+                        `${formatNumber(parkingDuration, {
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 0,
+                        })} км`,
+                      ]}
+                    />
+                    <CarFeatureBasic
+                      category="Пакеты"
+                      feature={
+                        <div className={styles.options}>
+                          <div className={styles.all_options}>
+                            <div>{baseOptions[0]?.name}</div>
+                          </div>
+                          {baseOptions.length > 1 && (
+                            <div
+                              className={styles.more_options_text}
+                            >{`(+ ещё ${baseOptions.length} пакет)`}</div>
+                          )}
+                        </div>
+                      }
+                    />
+                  </div>
                 </div>
               )
             );
