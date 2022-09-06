@@ -10,6 +10,7 @@ import CarFeature from "./components/CarFeature";
 import CarFeatureBasic from "./components/CarFeatureBasic";
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
+import CrossIcon from "../../assets/cross.svg";
 
 export const CAR_BRANDS = [
   "Audi",
@@ -77,8 +78,23 @@ const Card = ({
     },
     []
   );
+  const [modalIsOpen, setIsOpen] = useState(false);
+
   return (
     <div className={styles.card} key={_id}>
+      {modalIsOpen && (
+        <div className={styles.modal}>
+          <div className={styles.modal_title}>
+            <div>Пакеты опций</div>
+            <CrossIcon onClick={() => setIsOpen(false)} />
+          </div>
+          <div className={styles.modal_list}>
+            {noFactoryOptions.map(({ name }) => (
+              <div key={name}>{name}</div>
+            ))}
+          </div>
+        </div>
+      )}
       <div className={styles.title}>
         {`${brandName} ${modelName} ${equipmentVariantName}`}
         <span className={styles.production_year}>{productionYear}</span>
@@ -131,7 +147,10 @@ const Card = ({
           <CarFeatureBasic
             category="Пакеты"
             feature={
-              <div className={styles.options}>
+              <div
+                className={styles.options}
+                onClick={() => setIsOpen(!modalIsOpen)}
+              >
                 <div className={styles.all_options}>
                   <div>{noFactoryOptions[0]?.name}</div>
                 </div>
@@ -172,27 +191,27 @@ const Price = ({
   price: number;
   optionalPrice?: number;
 }) => {
+  const renderPrice = (_price: number) => {
+    return (
+      <span style={{ color: "var(--accent-primary)" }}>
+        {formatNumber(_price, {
+          maximumFractionDigits: 0,
+          minimumFractionDigits: 0,
+        })}
+      </span>
+    );
+  };
   return (
     <div className={styles.price}>
       <div>
-        <span style={{ color: "var(--accent-primary)" }}>
-          {formatNumber(price, {
-            maximumFractionDigits: 0,
-            minimumFractionDigits: 0,
-          })}
-        </span>
+        {renderPrice(price)}
         {` ₽`}
       </div>
       {optionalPrice > 0 && (
         <div className={styles.price_optional}>
           <div>
             {`Доп. опции на `}
-            <span style={{ color: "var(--accent-primary)" }}>
-              {formatNumber(optionalPrice, {
-                maximumFractionDigits: 0,
-                minimumFractionDigits: 0,
-              })}
-            </span>
+            {renderPrice(optionalPrice)}
             {` ₽`}
           </div>
         </div>
