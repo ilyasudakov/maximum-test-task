@@ -7,16 +7,21 @@ export default function BasicSelect({
   children,
   setIsOpen,
   isOpen,
+  hasChanged = false,
 }: {
   title: string;
   subtext?: string;
   children: React.ReactNode;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  hasChanged: boolean;
 }) {
   return (
-    <div className={`${styles.container} ${isOpen ? "" : styles.hidden}`}>
-      <div className={styles.header} onClick={() => setIsOpen(!isOpen)}>
+    <div className={`${styles.container} ${isOpen ? "" : styles.hidden} `}>
+      <div
+        className={`${styles.header} ${hasChanged ? styles.has_changed : ""}`}
+        onClick={() => setIsOpen(!isOpen)}
+      >
         <div>{title}</div>
         <ChevronIcon className={styles.chevron} />
       </div>

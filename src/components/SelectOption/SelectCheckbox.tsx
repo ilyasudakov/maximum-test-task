@@ -12,9 +12,17 @@ export default function SelectCheckbox({
   onChange: (newValue: boolean, text: string) => void;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const isEverythingOff = () => {
+    return Object.values(items).reduce((isOff, value) => !value && isOff, true);
+  };
 
   return (
-    <BasicSelect isOpen={isOpen} setIsOpen={setIsOpen} title={title}>
+    <BasicSelect
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
+      title={title}
+      hasChanged={!isEverythingOff()}
+    >
       {Object.entries(items).map(([text, checked]) => (
         <Checkbox
           key={text}
