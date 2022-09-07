@@ -58,7 +58,8 @@
         flex-direction: column;
         width: 100%;
         gap: 0.8rem;
-        margin-top: 1.4rem;
+        margin-top: auto;
+        padding-top: 0.9rem;
 
         .features_cols {
             display: flex;
@@ -89,6 +90,7 @@
         .options {
             display: flex;
             align-items: center;
+            cursor: pointer;
             .all_options {
                 display: table;
                 table-layout: fixed;
@@ -115,6 +117,8 @@
 
     .features_cols_price {
         flex-direction: column;
+        margin-top: 2rem;
+        align-items: center;
         @media (min-width: 420px) {
             flex-direction: row;
         }
